@@ -13,14 +13,12 @@ async def proxy_handler(request):
 
     request_headers = dict(request.headers)
     request_headers['Host'] = 'habrahabr.ru'
-    request = request.clone(headers=request_headers)
 
     async with aiohttp.ClientSession() as session:
         response = await session.get(target_url, headers=request_headers)
 
         # Build proxy response headers
-        exclude_headers = ('Content-Encoding', 'Content-Length')
-        # exclude_headers = tuple()
+        exclude_headers = ('Content-Encoding', )
         proxy_response_headers = {k: v for k, v in response.headers.items() if k not in exclude_headers}
 
         proxy_response = web.StreamResponse(
@@ -31,6 +29,7 @@ async def proxy_handler(request):
 
         await proxy_response.prepare(request)
 
+        # TODO: transform content here
         while True:
             chunk = await response.content.read(io.DEFAULT_BUFFER_SIZE)
             if not chunk:
@@ -39,6 +38,7 @@ async def proxy_handler(request):
             await proxy_response.drain()
 
         await proxy_response.write_eof()
+        await response.release()
 
     return proxy_response
 
