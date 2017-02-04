@@ -20,7 +20,7 @@ def modify(s):
     body = s[body_start_index:body_end_index]
     post_body = s[body_end_index:]
     parts = []
-    forbidden_tags = ('script', 'style')
+    forbidden_tags = ('script', 'style', 'svg')
     previous = None
     for part in re.split(r'(</[a-zA-Z]+>)', body):
         m = re.match(r'</([a-zA-Z]+)>', part)
