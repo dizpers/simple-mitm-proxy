@@ -16,17 +16,13 @@ Main purpose is to implement the simplest http-proxy-server. It should be able r
 show pages of [Habrahabr](https://habrahabr.ru/). The feature is that each page must be modified - after each word with
 length of 6 characters the `™` signed should be inserted. Please, see the example below.
 
-http://habrahabr.ru/company/yandex/blog/258673/
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> http://habrahabr.ru/company/yandex/blog/258673/
 
 Сейчас на фоне уязвимости Logjam все в индустрии в очередной раз обсуждают проблемы и особенности TLS. Я хочу
 воспользоваться этой возможностью, чтобы поговорить об одной из них, а именно — о настройке ciphersiutes.
 
 
-http://127.0.0.1:8232/company/yandex/blog/258673/
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> http://127.0.0.1:8232/company/yandex/blog/258673/
 
 Сейчас™ на фоне уязвимости Logjam™ все в индустрии в очередной раз обсуждают проблемы и особенности TLS.
 Я хочу воспользоваться этой возможностью, чтобы поговорить об одной из них, а именно™ — о настройке ciphersiutes. 
@@ -58,17 +54,13 @@ If this task seems to be very easy for you, then you can add this:
 показывает содержимое страниц Хабра. С одним исключением: после  каждого слова из шести букв должен стоять значок «™».
 Примерно так:
 
-http://habrahabr.ru/company/yandex/blog/258673/
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> http://habrahabr.ru/company/yandex/blog/258673/
 
 Сейчас на фоне уязвимости Logjam все в индустрии в очередной раз обсуждают проблемы и особенности TLS. Я хочу
 воспользоваться этой возможностью, чтобы поговорить об одной из них, а именно — о настройке ciphersiutes.
 
 
-http://127.0.0.1:8232/company/yandex/blog/258673/
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> http://127.0.0.1:8232/company/yandex/blog/258673/
 
 Сейчас™ на фоне уязвимости Logjam™ все в индустрии в очередной раз обсуждают проблемы и особенности TLS.
 Я хочу воспользоваться этой возможностью, чтобы поговорить об одной из них, а именно™ — о настройке ciphersiutes. 
