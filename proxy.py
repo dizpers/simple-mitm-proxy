@@ -20,7 +20,7 @@ def modify(s):
     body = s[body_start_index:body_end_index]
     post_body = s[body_end_index:]
     parts = []
-    forbidden_tags = ('script', 'style', 'svg')
+    forbidden_tags = ('script', 'style')
     previous = None
     for part in re.split(r'(</[a-zA-Z]+>)', body):
         m = re.match(r'</([a-zA-Z]+)>', part)
@@ -31,13 +31,16 @@ def modify(s):
                 parts.append(part)
                 continue
             previous_parts = re.split(r'(<{0}.*?>)'.format(tag_name), previous)
-            text = previous_parts[-1]
-            words = []
-            for word in text.split(' '):
-                if len(word) == 6:
-                    word += '™'
-                words.append(word)
-            previous_parts[-1] = ' '.join(words)
+            # for case when previous is like `<path d="..."/>` -> there's no text ->
+            # split will give only 1 element. sounds like a hack?
+            if len(previous_parts) > 1:
+                text = previous_parts[-1]
+                words = []
+                for word in text.split(' '):
+                    if len(word) == 6:
+                        word += '™'
+                    words.append(word)
+                previous_parts[-1] = ' '.join(words)
             parts.append(''.join(previous_parts))
             parts.append(part)
         else:
