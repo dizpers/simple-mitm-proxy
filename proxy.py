@@ -19,20 +19,30 @@ def modify(s):
     pre_body = s[:body_start_index]
     body = s[body_start_index:body_end_index]
     post_body = s[body_end_index:]
-    split_parts = re.split(r'[>\s](\w{6})(?!([^<]+)?>)(?=[^\w])', body, flags=re.UNICODE)
     parts = []
-    need_append = True
-    forbidden_tags = ['<{0}{1}'.format(close, tag) for tag in ('script', 'style') for close in ('', '/')]
-    for part in split_parts:
-        if part is None:
-            continue
-        tags = {tag: part.rfind(tag) for tag in forbidden_tags}
-        if not all([index == -1 for index in tags.values()]):
-            need_append = '/' in max(tags, key=lambda item: tags[item])
-        if need_append and len(part) == 6:
-            part += '™'
-        parts.append(part)
-    body = ' '.join(parts)
+    forbidden_tags = ('script', 'style')
+    previous = None
+    for part in re.split(r'(</[a-zA-Z]+>)', body):
+        m = re.match(r'</([a-zA-Z]+)>', part)
+        if m:
+            tag_name = m.group(1)
+            if tag_name in forbidden_tags:
+                parts.append(previous)
+                parts.append(part)
+                continue
+            previous_parts = re.split(r'(<{0}.*?>)'.format(tag_name), previous)
+            text = previous_parts[-1]
+            words = []
+            for word in text.split(' '):
+                if len(word) == 6:
+                    word += '™'
+                words.append(word)
+            previous_parts[-1] = ' '.join(words)
+            parts.append(''.join(previous_parts))
+            parts.append(part)
+        else:
+            previous = part
+    body = ''.join(parts)
     return pre_body + body + post_body
 
 
