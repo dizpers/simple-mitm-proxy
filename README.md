@@ -1,6 +1,6 @@
-# simple-mitm-proxy (docs WIP)
+# Simple MITM proxy
 
-Implementation of simple MITM proxy, which will change content of the page
+Implementation of simple MITM proxy, which will change content of the page.
 
 # EN
 
